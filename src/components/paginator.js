@@ -4,11 +4,51 @@ export const paginator = ()=>{
     let posts = document.querySelectorAll('.item-card')
     let buttons = Math. ceil(posts.length/itemsPerPage)
 
+    const showCards = (setPage)=>{
+        page = setPage
+        posts.forEach((post,index)=>{
+            if((index+1 <= page*itemsPerPage) && (index+1 >= (page*itemsPerPage)-(itemsPerPage-1))){
+                post.classList.add('block')
+                post.classList.remove('hidden')
+            }else{
+                post.classList.add('hidden')
+                post.classList.remove('block')
+            }
+        })
+    }
+
+    const showButtons = (pageMoment)=>{
+        let btnsPaginate = document.querySelectorAll('.btn-page')
+        let showBtn = ['increase','decrease','1',String((btnsPaginate.length)-2),String(parseInt(pageMoment)+1),String(parseInt(pageMoment)+2),String(pageMoment-1),String(pageMoment-2),String(pageMoment)]
+        btnsPaginate.forEach((btn)=>{
+
+            if(showBtn.includes(btn.dataset.page)){
+                btn.parentElement.classList.add('block')
+                btn.parentElement.classList.remove('hidden')
+            }else{
+                btn.parentElement.classList.add('hidden')
+                btn.parentElement.classList.remove('block')
+            }
+            btn.classList.remove('mr-2')
+            btn.classList.remove('ml-2')
+        })
+        if(btnsPaginate[page-2]){
+            if(btnsPaginate[page-2]!=1 && btnsPaginate[page-2]!=0){
+                btnsPaginate[page-2].classList.add('ml-2')
+            }
+        }
+        if(btnsPaginate[parseInt(page)+2]){
+            if(btnsPaginate[parseInt(page)+2]!=btnsPaginate.length-2 && btnsPaginate[parseInt(page)+2]!=btnsPaginate.length-1){
+                btnsPaginate[parseInt(page)+2].classList.add('mr-2')
+            }
+        }
+    }
+    
     if(buttons>1){
         document.querySelector('#paginator').innerHTML = `
         <ul class="flex items-center justify-center gap-1 max-w-full p-4">
         </ul>
-    `
+        `
         for(let i=1;i<=buttons;i++){
             let btn = document.createElement('li')
             btn.innerHTML = `
@@ -34,18 +74,7 @@ export const paginator = ()=>{
         `
         document.querySelector('#paginator ul').appendChild(afterBtn)
 
-        const showCards = (setPage)=>{
-            page = setPage
-            posts.forEach((post,index)=>{
-                if((index+1 <= page*itemsPerPage) && (index+1 >= page*itemsPerPage-itemsPerPage)){
-                    post.classList.add('block')
-                    post.classList.remove('hidden')
-                }else{
-                    post.classList.add('hidden')
-                    post.classList.remove('block')
-                }
-            })
-        }
+        
 
         let btnsPaginate = document.querySelectorAll('.btn-page')
         btnsPaginate.forEach((btn)=>{
@@ -78,38 +107,12 @@ export const paginator = ()=>{
                 btnsPaginate[btnsPaginate.length-1].disabled = page == buttons ? true : false
                 
                 showCards(page)
-                showButtons(page)
+                if(buttons>1){
+                    showButtons(page)
+                }
             })
         })
-        
-        const showButtons = (pageMoment)=>{
-            let showBtn = ['increase','decrease','1',String((btnsPaginate.length)-2),String(parseInt(pageMoment)+1),String(parseInt(pageMoment)+2),String(pageMoment-1),String(pageMoment-2),String(pageMoment)]
-            btnsPaginate.forEach((btn)=>{
-
-                if(showBtn.includes(btn.dataset.page)){
-                    btn.parentElement.classList.add('block')
-                    btn.parentElement.classList.remove('hidden')
-                }else{
-                    btn.parentElement.classList.add('hidden')
-                    btn.parentElement.classList.remove('block')
-                }
-                btn.classList.remove('mr-2')
-                btn.classList.remove('ml-2')
-            })
-            if(btnsPaginate[page-2]){
-                if(btnsPaginate[page-2]!=1 && btnsPaginate[page-2]!=0){
-                    btnsPaginate[page-2].classList.add('ml-2')
-                }
-            }
-            if(btnsPaginate[parseInt(page)+2]){
-                if(btnsPaginate[parseInt(page)+2]!=btnsPaginate.length-2 && btnsPaginate[parseInt(page)+2]!=btnsPaginate.length-1){
-                    btnsPaginate[parseInt(page)+2].classList.add('mr-2')
-                }
-            }
-        }
-
-        showCards(1)
         showButtons(1)
     }
-    
+    showCards(1)
 }
