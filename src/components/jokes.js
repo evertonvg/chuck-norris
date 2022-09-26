@@ -16,11 +16,19 @@ export const jokes = () =>{
     showLoad()
     axios.get(`https://api.chucknorris.io/jokes/search?query=${form.term.value}`)
     .then((res)=>{
+      console.log(res.data.result)
       document.querySelector('#jokes').innerHTML =  `
         <span class="bg-orange-500 block p-4 text-white">${res.data.total == 0 ? 'No jokes found.' :`there are ${res.data.total} joke(s) found.`}</span>
         ${ Object.values(res.data.result).map((item)=>{
           return  `<a href="${item.url}" target="_blank" class="item-card hidden animate-fade">
               <div class="border-l-4 border-l-orange-600 card-item p-4 shadow-md mt-4 pb-8 relative hover:-translate-y-1 transition-all">
+                <div class="flex items-center justify-left gap-1 mb-2">
+                  ${
+                    Object.values(item.categories).map((category)=>{
+                      return `<div class="py-1 px-2 bg-orange-500 text-white">${category}</div>`
+                    }).join('')
+                  }
+                </div>
                 ${item.value}
                 <span class="absolute bottom-2 left-4 text-gray-500 text-xs">${moment(item.updated_at).format('DD/MM/YYYY')}</span>
               </div>
@@ -44,7 +52,7 @@ export const jokes = () =>{
     showLoad()
     axios.get(`https://api.chucknorris.io/jokes/search?query=${findField.value}`)
       .then((resp)=>{
-        console.log(resp.data.result[0],resp.data.total)
+        console.log(resp.data.result[0])
         document.querySelector('#jokes').innerHTML = `
           <span class="bg-orange-500 block p-4 text-white">${resp.data.total == 0 ? 'No luck, sorry.' : 'your luck is here'}</span>
           ${
@@ -52,6 +60,13 @@ export const jokes = () =>{
             `
             <a href="${resp.data.result[0].url}" target="_blank" class="item-card animate-fade">
             <div class="border-l-4 border-l-orange-600 card-item p-4 shadow-md mt-4 pb-8 relative hover:-translate-y-1 transition-all">
+              <div class="flex items-center justify-left gap-1 mb-2">
+                ${
+                  Object.values(resp.data.result[0].categories).map((category)=>{
+                    return `<div class="py-1 px-2 bg-orange-500 text-white">${category}</div>`
+                  }).join('')
+                }
+              </div>
               ${resp.data.result[0].value}
               <span class="absolute bottom-2 left-4 text-gray-500 text-xs">${moment(resp.data.result[0].updated_at).format('DD/MM/YYYY')}</span>
             </div>
