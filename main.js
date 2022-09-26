@@ -27,8 +27,11 @@ document.querySelector('#app').innerHTML = `
           </div>
         </form>
       </div>
-      <div id="jokes" class="mt-6">
+      <div class="mt-6" id="jokes">
 
+      </div>
+      <div class="mt-8" id="paginator">
+          
       </div>
     </div>
   </section>

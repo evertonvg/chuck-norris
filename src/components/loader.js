@@ -1,6 +1,7 @@
 
 import chuckNorrisImage from '../images/chucknorris_logo_coloured_small.png'
-export function loader(){
+
+export const  loader = ()=>{
     let load = document.createElement('div')
     load.id = 'loader'
     const list = ['fixed','top-0','left-0', 'w-screen','h-screen','bg-gray-500','items-center','justify-center','hidden'];

@@ -7,9 +7,11 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "tailwind": "npx tailwindcss -i ./src/styles/style.css -o ./style.css --watch"
+    "tailwind": "npx tailwindcss -i ./src/styles/style.css -o ./style.css --watch",
+    "serve": "concurrently  \"npm run dev\" \"npx tailwindcss -i ./src/styles/style.css -o ./style.css --watch\""
   },
   "devDependencies": {
+    "concurrently": "^7.4.0",
     "tailwindcss": "^3.1.8",
     "vite": "^3.1.0"
   },
