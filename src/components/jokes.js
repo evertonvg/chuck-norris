@@ -1,5 +1,6 @@
 import axios from "axios"
 import { hideLoad,showLoad } from './loader'
+import moment from 'moment'
 
 
 let list = ['border-red-900','border-4']
@@ -14,8 +15,33 @@ export function jokes() {
     showLoad()
     axios.get(`https://api.chucknorris.io/jokes/search?query=${form.term.value}`)
     .then((res)=>{
-      console.log(res.data)
-      document.querySelector('#jokes').innerHTML =  res.data.value
+      console.log(Object.values(res.data.result))
+      document.querySelector('#jokes').innerHTML =  `
+        <span class="bg-orange-500 block p-4 text-white">${res.data.total == 0 ? 'No jokes found.' :`there are ${res.data.total} joke(s) found.`}</span>
+        ${ Object.values(res.data.result).map((item)=>{
+          return  `<a href="${item.url}" target="_blank">
+            <div class="p-4 shadow-md mt-4 pb-8 relative hover:-translate-y-1 transition-all">
+                      ${item.value}
+                      <span class="absolute bottom-2 left-4 text-gray-500 text-xs">${moment(item.updated_at).format('DD/MM/YYYY')}</span>
+                    </div>
+            </a>`
+          }).join('')
+        }
+        <div class="mt-8">
+          <ul class="flex items-center justify-center gap-3">
+            <li class="">
+              <button class="w-12 h-12 bg-orange-500 text-white flex items-center justify-center cursor-pointer">
+                1
+              </button>
+            </li>
+            <li >
+              <button class="w-12 h-12 bg-orange-500 text-white flex items-center justify-center cursor-pointer">
+                2
+              </button>
+            </li>
+          </ul>
+        </div>
+      `
     })
     .catch(err=>{
       console.log(err)

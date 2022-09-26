@@ -13,13 +13,13 @@ document.querySelector('#app').innerHTML = `
   </header>
   
   <section>
-    <div id="content" class="mx-auto max-w-xl">
+    <div id="content" class="mx-auto max-w-xl px-5 pb-5">
       <p class="mt-4">
         Chuck Norris facts is a free website supplied by <a href="https://api.chucknorris.io" target="_blank">chucknorris.io</a> which shows funny facts about chuck norris memes.
       </p>
       <div class="mt-4">
         <form name="search">
-          <label for="find-field">Type in the field below and click find to show some jokes</label>
+          <label for="find-field">Type in the field below and click find to show some jokes about your term</label>
           <div class="flex mt-2 relative">
             <input type="text" id="find-field" name="term" class="border flex-1 pl-4" placeholder="Type here">
             <input type="submit" value="Search" class="p-4  ml-4 bg-orange-500 transition-colors hover:bg-orange-700 cursor-pointer text-white">
@@ -27,7 +27,7 @@ document.querySelector('#app').innerHTML = `
           </div>
         </form>
       </div>
-      <div id="jokes">
+      <div id="jokes" class="mt-6">
 
       </div>
     </div>
