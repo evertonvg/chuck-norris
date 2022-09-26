@@ -4,6 +4,7 @@ export const paginator = ()=>{
     let posts = document.querySelectorAll('.item-card')
     let buttons = Math. ceil(posts.length/itemsPerPage)
 
+
     const showCards = (setPage)=>{
         page = setPage
         posts.forEach((post,index)=>{
@@ -107,12 +108,14 @@ export const paginator = ()=>{
                 btnsPaginate[btnsPaginate.length-1].disabled = page == buttons ? true : false
                 
                 showCards(page)
-                if(buttons>1){
-                    showButtons(page)
-                }
+               
+                showButtons(page)
             })
         })
         showButtons(1)
+    }else{
+        document.querySelector('#paginator').innerHTML = ``
     }
     showCards(1)
+    
 }

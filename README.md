@@ -4,7 +4,7 @@
 # install dependencies
 $ "yarn install" or "npm install"
 
-# serve with hot reload at localhost
+# server with hot reload at localhost
 $ "yarn serve" or "npm run serve"
 
 # build for production
