@@ -31,6 +31,7 @@ export const jokes = () =>{
       paginator()
     })
     .catch(err=>{
+      console.log(err)
       document.querySelector('#jokes').innerHTML =  `<span class="bg-orange-500 block p-4 text-white">Server error, please come back later</span>`
     })
     .finally(()=>{
